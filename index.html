@@ -5,12 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ra Massoterapia | Agendamentos</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
   <!-- Cabecalho Principal com Logo -->
   <header class="hero">
-    <img src="imagem.jpg" alt="Logo Ra Massoterapia" class="logo">
+    <img src="./imagem.jpg" alt="Logo Ra Massoterapia" class="logo">
     <h1>Ra Massoterapia</h1>
     <p>Sua pausa diária para renovar as energias e cuidar da sua saúde.</p>
   </header>
@@ -20,9 +21,9 @@
     <section class="secao">
       <h2>Nosso Espaço & Atendimentos</h2>
       <div class="galeria">
-        <img src="imagem1.jpg" alt="Atendimento Ra Massoterapia">
-        <img src="imagem2.jpg" alt="Espaço Ra Massoterapia">
-        <img src="imagem3.jpg" alt="Sessão de Massagem">
+        <img src="./imagem1.jpg" alt="Atendimento Ra Massoterapia">
+        <img src="./imagem2.jpg" alt="Espaço Ra Massoterapia">
+        <img src="./imagem3.jpg" alt="Sessão de Massagem">
       </div>
     </section>
 
@@ -54,23 +55,8 @@
         <!-- NOVO CAMPO: Horarios de Atendimento -->
         <div class="campo">
           <label for="horario">Horário Desejado:</label>
-          <select id="horario" required>
-            <option value="" disabled selected>Selecione o horário...</option>
-            <!-- Manhã (08h às 12h) -->
-            <option value="08:00">08:00</option>
-            <option value="09:00">09:00</option>
-            <option value="10:00">10:00</option>
-            <option value="11:00">11:00</option>
-            <!-- Almoço das 12:00 às 13:00 (Pausa) -->
-            <!-- Tarde / Noite (13h às 20h) -->
-            <option value="13:00">13:00</option>
-            <option value="14:00">14:00</option>
-            <option value="15:00">15:00</option>
-            <option value="16:00">16:00</option>
-            <option value="17:00">17:00</option>
-            <option value="18:00">18:00</option>
-            <option value="19:00">19:00</option>
-            <option value="20:00">20:00</option>
+          <select id="horario" required disabled>
+            <option value="" disabled selected>Selecione primeiro a data...</option>
           </select>
         </div>
 
