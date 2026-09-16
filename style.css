@@ -64,6 +64,45 @@ body {
   text-align: center;
 }
 
+.preco-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.preco-item:last-of-type {
+  border-bottom: none;
+}
+
+.preco-item div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.preco-item strong {
+  color: #f3e5ab;
+}
+
+.preco-item span,
+.duracao {
+  color: #e0d5be;
+  font-size: 0.85rem;
+}
+
+.preco-item b {
+  color: #d4af37;
+  white-space: nowrap;
+}
+
+.duracao {
+  margin-top: 15px;
+  text-align: center;
+}
+
 /* Galeria de Fotos */
 .galeria {
   display: grid;

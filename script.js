@@ -70,6 +70,7 @@ formAgendamento.addEventListener('submit', async (event) => {
   const servico = document.getElementById('servico').value;
   const data = campoData.value;
   const horario = campoHorario.value;
+  const valor = servico.startsWith('Combo 4 sessões') ? 'R$ 500,00' : 'R$ 150,00';
 
   if (!data || !horario || campoHorario.disabled) {
     alert('Selecione uma data e um horário disponível.');
@@ -95,6 +96,7 @@ formAgendamento.addEventListener('submit', async (event) => {
   const texto = `Olá, *Ra Massoterapia*! Gostaria de solicitar um agendamento.\n\n` +
     `*Nome:* ${nome}\n` +
     `*Serviço:* ${servico}\n` +
+    `*Valor:* ${valor}\n` +
     `*Data:* ${dataFormatada}\n` +
     `*Horário:* ${horario}`;
 
