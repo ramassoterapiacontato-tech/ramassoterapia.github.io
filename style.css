@@ -1,0 +1,137 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* Fundo Geral Escuro */
+body {
+  background-color: #181d25;
+  color: #f3e5ab;
+}
+
+/* Header com Azul Grafite da Logo */
+.hero {
+  background-color: #212832;
+  color: #d4af37;
+  text-align: center;
+  padding: 35px 20px;
+  border-bottom: 2px solid #d4af37;
+}
+
+/* Estilo da Logo */
+.logo {
+  max-width: 85px;
+  height: auto;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero h1 {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.hero p {
+  font-size: 0.95rem;
+  color: #e0d5be;
+}
+
+/* Containers e Cards */
+.container {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+
+.secao {
+  background: #212832;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.secao h2 {
+  font-size: 1.3rem;
+  color: #d4af37;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Galeria de Fotos */
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.galeria img {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #d4af37;
+}
+
+/* Formulario */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #d4af37;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d4af37;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background-color: #181d25;
+  color: #ffffff;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #f3e5ab;
+  box-shadow: 0 0 6px rgba(212, 175, 55, 0.6);
+}
+
+/* Botão de Destaque em Dourado Métalico */
+.btn-whats {
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  color: #181d25;
+  border: none;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-whats:hover {
+  background: linear-gradient(135deg, #f3e5ab, #d4af37);
+  transform: translateY(-2px);
+}
