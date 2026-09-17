@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin - Ra Massoterapia</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root {
+      --bg: #181d25;
+      --panel: #212832;
+      --panel-strong: #1b232c;
+      --gold: #d4af37;
+      --gold-soft: #f3e5ab;
+      --text: #f5efe2;
+      --muted: #d8d0c0;
+      --success: #7fc99a;
+      --danger: #d66a6a;
+      --warning: #f0c76d;
+      --border: rgba(212, 175, 55, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 28px;
+    }
+
+    .brand {
+      color: var(--gold-soft);
+      font-size: 1.7rem;
+      font-weight: 700;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), #b8860b);
+      color: var(--bg);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      padding: 22px;
+    }
+
+    .login-box {
+      max-width: 430px;
+      margin: 80px auto 0;
+    }
+
+    .login-box h1 {
+      margin: 0 0 10px;
+      text-align: center;
+      color: var(--gold-soft);
+    }
+
+    .login-box p {
+      margin: 0 0 22px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    label {
+      color: var(--gold-soft);
+      font-weight: 600;
+    }
+
+    input {
+      width: 100%;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--gold);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 1rem;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--gold-soft);
+      box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.22);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .stat {
+      background: var(--panel-strong);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold-soft);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      vertical-align: top;
+    }
+
+    th {
+      background: rgba(212, 175, 55, 0.08);
+      color: var(--gold-soft);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    tbody tr:hover {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .status {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: capitalize;
+    }
+
+    .status-pendente { background: rgba(240,199,109,0.12); color: var(--warning); }
+    .status-confirmado { background: rgba(124,207,154,0.12); color: var(--success); }
+    .status-cancelado { background: rgba(214,95,95,0.12); color: #f8aaaa; }
+
+    .actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .mini-btn {
+      border: none;
+      border-radius: 6px;
+      padding: 7px 10px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.75rem;
+    }
+
+    .mini-btn.confirm { background: rgba(124,207,154,0.12); color: var(--success); }
+    .mini-btn.cancel { background: rgba(240,199,109,0.14); color: var(--warning); }
+    .mini-btn.delete { background: rgba(214,95,95,0.12); color: #f8aaaa; }
+
+    .empty-state {
+      text-align: center;
+      padding: 26px 10px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 700px) {
+      th:nth-child(3), td:nth-child(3) {
+        display: none;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">Ra Massoterapia · Admin</div>
+      <div class="actions">
+        <button id="voltarSiteBtn" class="btn btn-secondary" type="button">Voltar ao site</button>
+        <button id="logoutBtn" class="btn btn-secondary hidden" type="button">Sair</button>
+      </div>
+    </div>
+
+    <section id="loginSection" class="panel login-box">
+      <h1>Painel administrativo</h1>
+      <p>Entre com e-mail e senha para acessar os agendamentos.</p>
+
+      <form id="loginForm">
+        <div class="field">
+          <label for="emailAdmin">E-mail</label>
+          <input id="emailAdmin" type="email" placeholder="Digite o e-mail" required />
+        </div>
+
+        <div class="field">
+          <label for="senhaAdmin">Senha</label>
+          <input id="senhaAdmin" type="password" placeholder="Digite a senha" required />
+        </div>
+
+        <button class="btn btn-primary" type="submit" style="width:100%;">Entrar</button>
+      </form>
+    </section>
+
+    <section id="dashboardSection" class="hidden">
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">Total</div>
+          <div id="totalAgendamentos" class="stat-value">0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Pendentes</div>
+          <div id="pendentesAgendamentos" class="stat-value">0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Confirmados</div>
+          <div id="confirmadosAgendamentos" class="stat-value">0</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="actions" style="margin-bottom: 12px;">
+          <button id="refreshBtn" class="btn btn-primary" type="button">Atualizar</button>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Serviço</th>
+              <th>Data</th>
+              <th>Horário</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="agendamentosBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
+
